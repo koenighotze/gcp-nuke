@@ -46,7 +46,7 @@ list_resources() {
 
   if check_service_status "$project_id" "$api_endpoint"; then
     echo "$3:"
-    eval "gcloud $resource list --project \"$project_id\""
+    eval "gcloud $resource list --project \"$project_id\" --format=\"value(name)\""
     seperator
   fi
 }
@@ -81,6 +81,9 @@ list_compute_resources() {
       list_resources "$project_id" "compute.googleapis.com" "compute $resource"
   done
 }
+
+echo "Generating resource report for project $PROJECT_ID"
+seperator
 
 list_enabled_services "$PROJECT_ID"
 list_compute_resources "$PROJECT_ID"
